@@ -41,18 +41,18 @@ namespace UUID {
 	public static void clear ([CCode (array_length = false)] uint8 uu[16]);
 	public static void copy (uint8 dst[16], uint8 src[16]);
 
-	public static void generate ([CCode (array_length = false)] uint8 @out[16]);
-	public static void generate_random ([CCode (array_length = false)] uint8 @out[16]);
-	public static void generate_time ([CCode (array_length = false)] uint8 @out[16]);
-	public static void generate_time_safe ([CCode (array_length = false)] uint8 @out[16]);
+	public static void generate ([CCode (array_length = false)] out uint8 @out[16]);
+	public static void generate_random ([CCode (array_length = false)] out uint8 @out[16]);
+	public static void generate_time ([CCode (array_length = false)] out uint8 @out[16]);
+	public static void generate_time_safe ([CCode (array_length = false)] out uint8 @out[16]);
 
 	public static bool is_null ([CCode (array_length = false)] uint8 uu[16]);
 
-	public static int parse (string in, [CCode (array_length = false)] uint8 uu[16]);
+	public static int parse (string in, [CCode (array_length = false)] out uint8 uu[16]);
 
-	public static void unparse ([CCode (array_length = false)] uint8 uu[16], [CCode (array_length = false)] char @out[37]);
-	public static void unparse_lower ([CCode (array_length = false)] uint8 uu[16], [CCode (array_length = false)] char @out[37]);
-	public static void unparse_upper ([CCode (array_length = false)] uint8 uu[16], [CCode (array_length = false)] char @out[37]);
+	public static void unparse ([CCode (array_length = false)] uint8 uu[16], [CCode (array_length = false)] out char @out[37]);
+	public static void unparse_lower ([CCode (array_length = false)] uint8 uu[16], [CCode (array_length = false)] out char @out[37]);
+	public static void unparse_upper ([CCode (array_length = false)] uint8 uu[16], [CCode (array_length = false)] out char @out[37]);
 
 	public static time_t time ([CCode (array_length = false)] uint8 uu[16], out Posix.timeval ret_tv);
 	public static UUID.Type type ([CCode (array_length = false)] uint8 uu[16]);
