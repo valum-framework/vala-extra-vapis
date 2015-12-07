@@ -211,8 +211,10 @@ namespace Memcached {
     public Memcached.Result result_create (Memcached.Result? result = null);
 
     // sasl.h
+	public void set_sasl_callbacks (SASL.SASLCallback[] callbacks);
     public Memcached.ReturnCode set_sasl_auth_data (string username, string password);
     public Memcached.ReturnCode destroy_sasl_auth_data ();
+	public SASL.SASLCallback[] get_sasl_callbacks ();
 
     // server.h
     [CCode (cname = "memcached_server_cursor")]
