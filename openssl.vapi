@@ -50,7 +50,7 @@ namespace OpenSSL
 		public int memcmp (void* v1, void* v2, size_t n);
 	}
 
-	[CCode (cprefix = "EVP_", lower_case_cprefix = "EVP_", cheader_filename = "openssl/evp.h")]
+	[CCode (lower_case_cprefix = "EVP_", cheader_filename = "openssl/evp.h")]
 	namespace EVP
 	{
 		[Compact]
@@ -262,7 +262,7 @@ namespace OpenSSL
 		public bool sign (int type, uint8[] m, [CCode (array_length = false)] uint8[] sigret, out int siglen);
 	}
 
-	[CCode (lower_case_cprefix = "PEM_")]
+	[CCode (lower_case_cprefix = "PEM_", cheader_filename = "openssl/pem.h")]
 	namespace PEM
 	{
 		[CCode (cname = "pem_password_cb")]
@@ -271,5 +271,24 @@ namespace OpenSSL
 		public bool write_bio_RSAPublicKey (BIO bp, RSA x);
 	}
 
-	public int i2d_RSA_PUBKEY (RSA rsa, [CCode (array_length = false)] out uchar[] pp);
+	[CCode (lower_case_cprefix = "", cheader_filename = "openssl/x509.h")]
+	namespace X509
+	{
+		public RSA d2i_RSAPrivateKey_fp (GLib.FileStream fp, out RSA rsa);
+		public int i2d_RSAPrivateKey_fp (GLib.FileStream fp, RSA rsa);
+		public RSA d2i_RSAPublicKey_fp (GLib.FileStream fp, out RSA rsa);
+		public int i2d_RSAPublicKey_fp (GLib.FileStream fp, RSA rsa);
+		public RSA d2i_RSA_PUBKEY_fp (GLib.FileStream fp, out RSA rsa);
+		public int i2d_RSA_PUBKEY_fp (GLib.FileStream fp, RSA rsa);
+
+		public RSA d2i_RSAPrivateKey_bio (BIO bp, out RSA rsa);
+		public int i2d_RSAPrivateKey_bio (BIO bp, RSA rsa);
+		public RSA d2i_RSAPublicKey_bio (BIO bp, out RSA rsa);
+		public int i2d_RSAPublicKey_bio (BIO bp, RSA rsa);
+		public RSA d2i_RSA_PUBKEY_bio (BIO bp, out RSA rsa);
+		public int i2d_RSA_PUBKEY_bio (BIO bp, RSA rsa);
+
+		public int i2d_RSA_PUBKEY (RSA a, [CCode (array_length = false)] out uchar[] pp);
+		public RSA d2i_RSA_PUBKEY (out RSA a, uchar*[] pp);
+	}
 }
