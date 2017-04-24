@@ -44,6 +44,22 @@ namespace OpenSSL
 		public int read (uint8[] buf);
 	}
 
+	[Compact]
+	[CCode (cname = "BIGNUM", lower_case_cprefix = "BN_", cheader_filename = "openssl/bn.h")]
+	public class Bignum
+	{
+		public Bignum ();
+		public int set_word (ulong w);
+
+	}
+
+	[Compact]
+	[CCode (cname = "BN_GENCB")]
+	public class BignumGenerator
+	{
+
+	}
+
 	[CCode (lower_case_cprefix = "CRYPTO_", cheader_filename = "openssl/crypto.h")]
 	namespace Crypto
 	{
@@ -257,9 +273,24 @@ namespace OpenSSL
 	[CCode (lower_case_cprefix = "RSA_", cheader_filename = "openssl/rsa.h")]
 	public class RSA
 	{
+		public static ulong F4;
+		public RSA ();
+		public int bits ();
 		public int size ();
-		[CCode (instance_pos = 5)]
+		public int security_bits ();
+		public int set0_key (Bignum n, Bignum e, Bignum d);
+		public int set0_factors (Bignum p, Bignum q);
+		public int get0_key (out unowned Bignum n, out unowned Bignum e, out unowned Bignum d);
+		public int get0_factors (out unowned Bignum p, out unowned Bignum q);
+		public int generate_key_ex (int bits, Bignum e, BignumGenerator? cb = null);
+		[CCode (instance_pos = 1.9)]
+		public int print_fp (GLib.FileStream? fp, int offset);
+		[CCode (instance_pos = 1.9)]
+		public int print (BIO bio, int offset);
+		[CCode (instance_pos = -1)]
 		public bool sign (int type, uint8[] m, [CCode (array_length = false)] uint8[] sigret, out int siglen);
+		[CCode (instance_pos = -1)]
+		public bool verify (int type, uint8[] m, uint8[] sigbuf);
 	}
 
 	[CCode (lower_case_cprefix = "PEM_", cheader_filename = "openssl/pem.h")]
